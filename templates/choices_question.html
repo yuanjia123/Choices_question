@@ -14,10 +14,14 @@
     </style>
 </head>
 <body>
+
 {% if score %}
     本次得分：{{ score }}
 {% endif %}
-<form action="{% url 'score' random_li %}" method="post">
+<form action="{% url 'score' random_li name%}" method="post">
+    {% if name %}
+        用户：{{ name }}
+    {% endif %}
     <table align="center" class="table table-striped table-bordered table-hover" style="width: 50%;margin: 50px auto">
     <thead>
         <th style="text-align: center">

@@ -15,7 +15,7 @@ def index(request):
 
 
 
-def score(request,random_li):
+def score(request,random_li,name):
     '''
     把50道题对象传进来 choices
     '''
@@ -64,7 +64,9 @@ def score(request,random_li):
     print("错误的有：",error_li)
     print("正确的有：",success_li)
     print("打印分数:",ore)
+    print("打印错误的题{id:选项}:",error_question)
     return render(request, "score.html", {
+        'name':name,
         'score': ore,
         'choice_all_li':new_li,
         'error_li':error_li,
@@ -74,7 +76,7 @@ def score(request,random_li):
 
 
 
-def question_choice(request):
+def question_choice(request,name):
 
     # 拿到全部的选择题答案
     li = list(Choice.objects.all())
@@ -90,8 +92,16 @@ def question_choice(request):
     for random_choice in random_li:
         val_li.append(li[random_choice-1])
 
+    print("----------------------------------",name,type(name))
     return render(request, "choices_question.html", {
         'choices':val_li,
-        'random_li':random_li
-
+        'random_li':random_li,
+        "name":name
         })
+
+
+def test(request):
+    li = [{1:'A'},{3:"B"},{9:"c"},{10:"D"}]
+    return render(request,'test.html',{
+        "li":li
+    })

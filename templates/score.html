@@ -22,7 +22,7 @@
 </head>
 <body>
 
-<h1 align="center">得分： {{ score }}</h1>
+<h1 align="center">用户：{{ name }} 得分： {{ score }}</h1>
 
     {% for success in success_li %}
             <div class = 'c1'>
@@ -47,7 +47,14 @@
 <hr style="margin-top: 50px">
 
     {% for error in error_li %}
+{#        {% for error_choice in error_question %}#}
+{#            {% if choice_all_li %}#}
+{##}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+
             <div class = 'c1'>
+{#                {{ error.id }}#}
                 {{ forloop.counter }}
                 {{ error.choice_text }}
                     <li class="list-group-item"> A :{{ error.a }}</li>

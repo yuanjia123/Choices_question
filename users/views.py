@@ -1,32 +1,68 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic.base import View
-from users.forms import LoginForm
+from users.forms import LoginForm,RegisterForm
 from django.http import HttpResponse
-
+from users.models import Grade,User
 
 # class Login(View):
 #     def get(self, request, *args, **kwargs):
-#         return render(request,"login.html")
+#         return render(request,"register.html")
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        msg = "已经完成数据提交"
+        if form.is_valid():
+            grade = form.cleaned_data["grade"]
+
+            name = form.cleaned_data["name"]
+            age = form.cleaned_data["age"]
+            gender = form.cleaned_data["gender"]
+            password = form.cleaned_data["password"]
+            print("grade:   ",grade)
+            print("name:   ",name)
+            print("age:   ",age)
+            print("gender:   ",gender)
+            print("password:   ",password)
+
+            g1 = Grade.objects.filter(g_name=grade).first()
+            if g1:
+                msg = "您所输入姓名:{} 已经存在".format(name)
+                return render(request, 'register.html', {'form': form, 'msg':msg})
+            else:
+                msg = "注册成功"
+                g1 = Grade(g_name = grade)
+                g1.save()
+                User.objects.create(name=name,age=age,password=password,g=g1)
+                return render(request, 'register.html', {'form': form, 'msg': msg})
+
+    else:
+        form = RegisterForm()
+        # msg = "初始化表单"
+
+    return render(request, 'register.html', {'form':form})
+
+
 
 def login(request):
     if request.method == 'POST':
+
         form = LoginForm(request.POST)
-        msg = "已经完成数据提交"
         if form.is_valid():
-            user_name = form.cleaned_data["username"]
-            pass_word = form.cleaned_data["password"]
-            choices = form.cleaned_data["choices"]
-            print("user_name:   ",user_name)
-            print("pass_word:   ",pass_word)
-            print("choices:   ",choices)
+            name = form.cleaned_data["name"]
+            password = form.cleaned_data["password"]
 
-
+            g1 = User.objects.filter(name=name,password=password).first()
+            if g1:
+                msg = "登录成功"
+                return redirect("question",name)
+            else:
+                msg = "账号密码输入错误、请您重新登录"
+                return render(request, 'login.html', {'form': form, 'msg': msg})
 
     else:
         form = LoginForm()
-        # msg = "初始化表单"
-
-    return render(request,'login.html',{'form':form})
+    return render(request, 'login.html', {'form': form})
 
 
 # 表单
