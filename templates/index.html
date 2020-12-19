@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>答题系统</title>
+</head>
+<body>
+<table border="1px">
+    <tr style="color: coral">
+        <td>
+            编号：
+        </td>
+        <td>
+            题目：
+        </td>
+        <td>
+            A：
+        </td>
+        <td>
+            B：
+        </td>
+        <td>
+            C：
+        </td>
+        <td>
+            D：
+        </td>
+    </tr>
+    {% for dic in choices %}
+
+        <tr>
+
+{#            <td>{{ forloop.counter }}</td>#}
+            <td>{{ dic.id }}</td>
+            <td>{{ dic.choice_text }}</td>
+            <td> {{ dic.a }}</td>
+            <td>{{ dic.b }}</td>
+            <td>{{ dic.c }}</td>
+            <td>{{ dic.d }}</td>
+            <td>
+
+            </td>
+        </tr>
+
+
+    {% endfor %}
+</table>
+
+</body>
+</html>
