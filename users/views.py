@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic.base import View
-from users.forms import LoginForm,RegisterForm
+from users.forms import LoginForm,RegisterForm,File_Form
 from django.http import HttpResponse
-from users.models import Grade,User
+from users.models import Grade,User,Student
 
 # class Login(View):
 #     def get(self, request, *args, **kwargs):
@@ -78,3 +78,16 @@ def search(request):
     else:
         message = '你提交了空表单'
     return HttpResponse(message)
+
+def upload_img(request):
+    if request.method == "POST":
+        form = File_Form(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            img = request.FILES.get('img')
+            Student.objects.create(sname=name,photo=img)
+            msg = "上传成功"
+        return render(request, 'upload_img.html', {'form':form,'msg':msg })
+    else:
+        form = File_Form()
+        return render(request, 'upload_img.html', {'form': form})

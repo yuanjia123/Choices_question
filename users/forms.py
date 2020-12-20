@@ -16,3 +16,8 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="密码",required=True,min_length=3)  #required=True必填字段
 
 
+class File_Form(forms.Form):
+    name = forms.CharField(label="用户名",required=False)
+    img = forms.ImageField(label="照片",required=False)  #required=True必填字段
+
+

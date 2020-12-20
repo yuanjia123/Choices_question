@@ -12,3 +12,10 @@ class User(models.Model):
     age = models.IntegerField(null=True)
     password = models.CharField(max_length=200)
     g = models.ForeignKey(Grade, on_delete=True)
+
+class Student(models.Model):
+    sname = models.CharField(max_length=30)
+    photo = models.ImageField(upload_to='imgs')
+
+    def __str__(self):
+        return self.sname
