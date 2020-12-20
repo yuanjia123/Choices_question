@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示全部照片</title>
+</head>
+<body>
+    <table border="1px">
+        <tr>
+            <td>id</td>
+            <td>名字</td>
+            <td>照片</td>
+        </tr>
+
+        {% for s in s_all %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.sname }}</td>
+{#                img标签src属性是什么？  是路径？寻找到照片的路径#}
+                <td><img src="{{ MEDIA_URL }}{{ s.photo }}" width="100px" height="100px"></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</body>
+</html>

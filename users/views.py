@@ -91,3 +91,7 @@ def upload_img(request):
     else:
         form = File_Form()
         return render(request, 'upload_img.html', {'form': form})
+
+def showall_img(request):
+    s_all = Student.objects.all()
+    return render(request, 'showall_img.html', {'s_all': s_all})

@@ -40,11 +40,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_exam.urls'
 
-# 文件上传配置  (写入文件)  所有上传的文件都在media下面   (指定文件上传的相对路径)
+# 文件上传配置  (写入文件)  所有上传的文件都在media下面   (指定文件上传的相对路径media/imgs/)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #访问文件的目录 （读取文件） 所有要访问的文件都在这下面
 MEDIA_URL = '/media/'
+STATIC_URL = '/static/'
 
 TEMPLATES = [
     {
@@ -58,6 +59,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #给每一个页面传递一个media_url这样的变量
+                #这个是类似于flask上下文处理器的东西(把media的路径传递到每个模板 )  按住ctrl点击 'django.template.context_processors.media'的media里面会返回一个settings.MEDIA_URL
+                'django.template.context_processors.media'
             ],
         },
     },
