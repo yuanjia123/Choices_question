@@ -40,6 +40,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_exam.urls'
 
+# 文件上传配置
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload/')
+MEDIA_URL = '/upload/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

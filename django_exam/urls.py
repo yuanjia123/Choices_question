@@ -7,7 +7,8 @@ urlpatterns = [
     path('insert/', views.index),
     path('question/<name>/', views.question_choice,name='question'),
     path('test/', views.test,name='test'),
+    path('upload/', views.upload,name='upload'),
     path('score/<random_li>/<name>/', views.score,name ='score' ),
-    path('user/', include('users.urls')),
-    path('', include('newuser.urls')),
+    path('', include('users.urls')),
+    # path('', include('newuser.urls')),
 ]

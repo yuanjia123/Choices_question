@@ -2,6 +2,10 @@ from django.shortcuts import render
 from exam_test import tools
 from exam_test.models import Choice
 import random
+from exam_test.forms import ExcelForm
+import os
+import time
+from django.http import HttpResponse
 
 
 def index(request):
@@ -105,3 +109,35 @@ def test(request):
     return render(request,'test.html',{
         "li":li
     })
+
+
+def upload(request):
+    if request.method == 'POST':
+        form = ExcelForm(request.POST,request.FILES)
+        #获取文件
+        excel_file = request.FILES.get('excel_file')
+
+        #对文件进行重名保存
+        file_name = '%d.xlsx' % round(time.time() * 1000)
+        #路径
+        file_path = os.path.join('excel', file_name)
+        print("-----------------------------------",excel_file.name)
+        print("-----------------------------------",file_path)
+
+        #如果当前项目下面不存media文件夹、则创建
+        if not os.path.exists('media'):
+            os.makedirs('media')
+
+        with open(os.path.join(os.getcwd(),'media',excel_file.name),'wb') as fw:
+            #如果是小文件 比如图片可以一次上传
+            fw.write(excel_file.read())
+
+            #分块读取
+            for ck in excel_file.chunks():
+                fw.write(ck)
+
+        msg = "文件上传成功"
+        return render(request, 'upload.html', {'form': form,'msg':msg})
+    else:
+        form = ExcelForm()
+    return render(request, 'upload.html', {'form': form})

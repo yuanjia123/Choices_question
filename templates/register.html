@@ -5,17 +5,15 @@
     <title>注册页面</title>
 </head>
 <body>
-<form action="/user/login/" method="post">
+<form action="{% url 'register' %}" method="post">
     {% csrf_token %}
+
     <table>
         {{ form }}
     </table>
 
-{#    {% if msg %}#}
-{#        {{ msg }}#}
-{#    {% endif %}#}
-
     <input type="submit" value="注册">
+    <a href="{% url 'login' %}">登录</a>
 </form>
 {{ msg }}
 

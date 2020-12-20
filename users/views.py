@@ -25,7 +25,7 @@ def register(request):
             print("gender:   ",gender)
             print("password:   ",password)
 
-            g1 = Grade.objects.filter(g_name=grade).first()
+            g1 = User.objects.filter(name=name).first()
             if g1:
                 msg = "您所输入姓名:{} 已经存在".format(name)
                 return render(request, 'register.html', {'form': form, 'msg':msg})
