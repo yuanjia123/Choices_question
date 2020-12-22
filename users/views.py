@@ -3,6 +3,7 @@ from django.views.generic.base import View
 from users.forms import LoginForm,RegisterForm,File_Form
 from django.http import HttpResponse
 from users.models import Grade,User,Student
+from django.contrib.auth import authenticate,login
 
 # class Login(View):
 #     def get(self, request, *args, **kwargs):
@@ -43,7 +44,6 @@ def register(request):
     return render(request, 'register.html', {'form':form})
 
 
-
 def login(request):
     if request.method == 'POST':
 
@@ -51,18 +51,48 @@ def login(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             password = form.cleaned_data["password"]
-
-            g1 = User.objects.filter(name=name,password=password).first()
-            if g1:
+            print("*************",name,password)
+            user = authenticate(username=name,password=password)
+            if user is not None:
+                print("登录成功",type(user))
+                login(request, user)
                 msg = "登录成功"
+
                 return redirect("question",name)
             else:
-                msg = "账号密码输入错误、请您重新登录"
-                return render(request, 'login.html', {'form': form, 'msg': msg})
+                return HttpResponse("登录失败")
+            # g1 = User.objects.filter(name=name,password=password).first()
+            # if g1:
+            #     msg = "登录成功"
+            #     return redirect("question",name)
+            # else:
+            #     msg = "账号密码输入错误、请您重新登录"
+            #     return render(request, 'login.html', {'form': form, 'msg': msg})
 
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+# def login(request):
+#     if request.method == 'POST':
+#
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             name = form.cleaned_data["name"]
+#             password = form.cleaned_data["password"]
+#
+#             g1 = User.objects.filter(name=name,password=password).first()
+#             if g1:
+#                 msg = "登录成功"
+#                 return redirect("question",name)
+#             else:
+#                 msg = "账号密码输入错误、请您重新登录"
+#                 return render(request, 'login.html', {'form': form, 'msg': msg})
+#
+#     else:
+#         form = LoginForm()
+#     return render(request, 'login.html', {'form': form})
 
 
 # 表单

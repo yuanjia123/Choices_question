@@ -69,7 +69,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_exam.wsgi.application'
 
-
+#继承django自带的用户类  第二步
+AUTH_USER_MODEL = "users.UserProfile"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 

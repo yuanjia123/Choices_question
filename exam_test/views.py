@@ -9,9 +9,9 @@ from django.http import HttpResponse
 
 
 def index(request):
-    # li = tools.data()
-    # for i in li:
-    #     Choice.objects.create(choice_text=i.get("topic"),a=i.get("a"),b=i.get("b"),c=i.get("c"),d=i.get("d"),answer=i.get("answer"),think=i.get("think"))
+    li = tools.data()
+    for i in li:
+        Choice.objects.create(choice_text=i.get("topic"),a=i.get("a"),b=i.get("b"),c=i.get("c"),d=i.get("d"),answer=i.get("answer"),think=i.get("think"))
     li = Choice.objects.all()[:50]
     return render(request,"index.html",{
         'choices':li
