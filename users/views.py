@@ -44,7 +44,7 @@ def register(request):
     return render(request, 'register.html', {'form':form})
 
 
-def login(request):
+def Login_View(request):
     if request.method == 'POST':
 
         form = LoginForm(request.POST)
@@ -53,7 +53,7 @@ def login(request):
             password = form.cleaned_data["password"]
             print("*************",name,password)
             user = authenticate(username=name,password=password)
-            if user is not None:
+            if user is not None and user.is_active:
                 print("登录成功",type(user))
                 login(request, user)
                 msg = "登录成功"
