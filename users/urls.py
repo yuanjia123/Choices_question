@@ -9,7 +9,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('upload_img/', views.upload_img, name='upload_img'),
     path('showall_img/', views.showall_img, name='showall_img'),
-    path('', views.Login_View, name='login'),
+    path('login/', views.Login_View, name='login'),
+    path('', views.Main_View, name='main'),
 
     # 1、为了整理、上传的图片、我们把所有的上传文件放到media文件夹下面、并且为它创建url访问地址   在setting当中设置两行 151行 152行
     # 2、设置了setting之后、依然是一个破图、显示不了

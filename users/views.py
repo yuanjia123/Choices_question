@@ -4,37 +4,74 @@ from users.forms import LoginForm,RegisterForm,File_Form
 from django.http import HttpResponse
 from users.models import Grade,User,Student
 from django.contrib.auth import authenticate,login
+from users.models import UserProfile
 
-# class Login(View):
-#     def get(self, request, *args, **kwargs):
-#         return render(request,"register.html")
+
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         msg = "已经完成数据提交"
+#         if form.is_valid():
+#             grade = form.cleaned_data["grade"]
+#
+#             name = form.cleaned_data["name"]
+#             age = form.cleaned_data["age"]
+#             gender = form.cleaned_data["gender"]
+#             password = form.cleaned_data["password"]
+#             print("grade:   ",grade)
+#             print("name:   ",name)
+#             print("age:   ",age)
+#             print("gender:   ",gender)
+#             print("password:   ",password)
+#
+#             g1 = User.objects.filter(name=name).first()
+#             if g1:
+#                 msg = "您所输入姓名:{} 已经存在".format(name)
+#                 return render(request, 'register.html', {'form': form, 'msg':msg})
+#             else:
+#                 msg = "注册成功"
+#                 g1 = Grade(g_name = grade)
+#                 g1.save()
+#                 User.objects.create(name=name,age=age,password=password,g=g1)
+#                 return render(request, 'register.html', {'form': form, 'msg': msg})
+#
+#     else:
+#         form = RegisterForm()
+#         # msg = "初始化表单"
+#
+#     return render(request, 'register.html', {'form':form})
 
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         msg = "已经完成数据提交"
         if form.is_valid():
-            grade = form.cleaned_data["grade"]
 
             name = form.cleaned_data["name"]
-            age = form.cleaned_data["age"]
-            gender = form.cleaned_data["gender"]
+            email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
-            print("grade:   ",grade)
             print("name:   ",name)
-            print("age:   ",age)
-            print("gender:   ",gender)
+            print("age:   ",email)
             print("password:   ",password)
 
-            g1 = User.objects.filter(name=name).first()
+            g1 = UserProfile.objects.filter(username=name).first()
             if g1:
                 msg = "您所输入姓名:{} 已经存在".format(name)
                 return render(request, 'register.html', {'form': form, 'msg':msg})
             else:
                 msg = "注册成功"
-                g1 = Grade(g_name = grade)
-                g1.save()
-                User.objects.create(name=name,age=age,password=password,g=g1)
+                # 手机号是用户名
+                user = UserProfile(username=name)
+
+                # 设置密码  加密的形式
+                user.set_password(password)
+                # 手机号是手机号
+                user.email = email
+                # 保存
+                user.save()
+                # 记录登录
+                login(request, user)
                 return render(request, 'register.html', {'form': form, 'msg': msg})
 
     else:
@@ -42,6 +79,7 @@ def register(request):
         # msg = "初始化表单"
 
     return render(request, 'register.html', {'form':form})
+
 
 
 def Login_View(request):
@@ -58,7 +96,10 @@ def Login_View(request):
                 login(request, user)
                 msg = "登录成功"
 
-                return redirect("question",name)
+                #如果登陆成功、跳到答题页面
+                #return redirect("question",name)
+
+                return redirect("main")
             else:
                 return HttpResponse("登录失败")
             # g1 = User.objects.filter(name=name,password=password).first()
@@ -125,3 +166,7 @@ def upload_img(request):
 def showall_img(request):
     s_all = Student.objects.all()
     return render(request, 'showall_img.html', {'s_all': s_all})
+
+
+def Main_View(request):
+    return render(request,'main.html')
