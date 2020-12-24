@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from users.forms import LoginForm,RegisterForm,File_Form
 from django.http import HttpResponse
 from users.models import Grade,User,Student
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from users.models import UserProfile
 
 
@@ -80,6 +80,13 @@ def register(request):
 
     return render(request, 'register.html', {'form':form})
 
+#编写退出接口
+class LogoutView(View):
+    def get(self,request,*args,**kwargs):
+        #退出登录、清空cook
+        logout(request)
+        #跳转到主页
+        return redirect("main")
 
 
 def Login_View(request):

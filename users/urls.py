@@ -1,6 +1,7 @@
 from django.urls import include,path
 from django.conf.urls import url
 from users import views
+from users.views import LogoutView
 #关于静态文件图片的访问
 from django.views.static import serve
 from django_exam.settings import MEDIA_ROOT
@@ -12,6 +13,8 @@ urlpatterns = [
     path('login/', views.Login_View, name='login'),
     path('', views.Main_View, name='main'),
 
+    # 退出登录
+    path('logout/', LogoutView.as_view(), name="logout"),  # name其别名
     # 1、为了整理、上传的图片、我们把所有的上传文件放到media文件夹下面、并且为它创建url访问地址   在setting当中设置两行 151行 152行
     # 2、设置了setting之后、依然是一个破图、显示不了
     # 3、配置关于media中图片的访问
