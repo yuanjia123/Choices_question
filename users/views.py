@@ -94,7 +94,7 @@ def Login_View(request):
 
         form = LoginForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data["name"]
+            name = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             print("*************",name,password)
             user = authenticate(username=name,password=password)

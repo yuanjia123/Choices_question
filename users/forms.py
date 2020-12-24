@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import widgets
+from django.forms import fields
 
 class RegisterForm(forms.Form):
     '''
@@ -10,9 +12,11 @@ class RegisterForm(forms.Form):
     password = forms.CharField(label="密码",required=True,min_length=3)  #required=True必填字段
 
 class LoginForm(forms.Form):
-    name = forms.CharField(label="用户名",required=True,min_length=3)  #required=True必填字段
-    password = forms.CharField(label="密码",required=True,min_length=3)  #required=True必填字段
+    username = forms.CharField(label="用户名",required=True,min_length=3,)  #required=True必填字段
+    username.widget.attrs.update({'class': 'form-control'})
 
+    password = forms.CharField(label="密码",required=True,min_length=3,)  #required=True必填字段
+    password.widget.attrs.update({'class': 'form-control'})
 
 class File_Form(forms.Form):
     name = forms.CharField(label="用户名",required=False)
