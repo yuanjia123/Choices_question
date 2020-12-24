@@ -1,53 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block title %}主页{% endblock %}
 
-	<head>
-		<meta charset="utf-8">
-		<title>{% block title %}主页{% endblock %}</title>
-		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
 
-	<body>
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">菜鸟教程</a>
-				</div>
-				<ul class="nav navbar-nav navbar-right">
-					{% if request.user.is_authenticated %}
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							{{ request.user.username }} <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="#">个人中心</a>
-							</li>
-							<li>
-								<a href="{% url 'logout' %}">退出</a>
-							</li>
-
-						</ul>
-					</li>
-					{% else %}
-					<li>
-						<a href="{% url "register" %}"><span class="glyphicon glyphicon-user"></span> 注册</a>
-					</li>
-					<li>
-						<a href="{% url "login" %}"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
-					</li>
-
-					{% endif %}
-				</ul>
-			</div>
-		</nav>
-
+{% block main %}
     <div class="main">
-        {% block main %}{% endblock %}
+
+            <form>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">试题名称</label>
+                    {{ form.file_name }}
+                  </div>
+                  <div class="form-group">
+                      {{form.file_excel}}
+                    <p class="help-block">上传的试卷格式excel</p>
+                  </div>
+                  <button type="submit" class="btn btn-default">上传</button>
+                   <span>{{ msg }}</span>
+            </form>
     </div>
-
-	</body>
-
-</html>
+{% endblock %}

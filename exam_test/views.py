@@ -115,7 +115,7 @@ def upload(request):
     if request.method == 'POST':
         form = ExcelForm(request.POST,request.FILES)
         #获取文件
-        excel_file = request.FILES.get('excel_file')
+        excel_file = request.FILES.get('file_excel')
 
         #对文件进行重名保存
         file_name = '%d.xlsx' % round(time.time() * 1000)
@@ -137,7 +137,7 @@ def upload(request):
                 fw.write(ck)
 
         msg = "文件上传成功"
-        return render(request, 'upload.html', {'form': form,'msg':msg})
+        return render(request, 'mian.html', {'form': form,'msg':msg})
     else:
         form = ExcelForm()
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'main.html', {'form': form})

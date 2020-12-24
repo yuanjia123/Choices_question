@@ -48,7 +48,7 @@ def register(request):
         msg = "已经完成数据提交"
         if form.is_valid():
 
-            name = form.cleaned_data["name"]
+            name = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             print("name:   ",name)
@@ -72,7 +72,8 @@ def register(request):
                 user.save()
                 # 记录登录
                 login(request, user)
-                return render(request, 'register.html', {'form': form, 'msg': msg})
+                # return render(request, 'register.html', {'form': form, 'msg': msg})
+                return redirect("main")
 
     else:
         form = RegisterForm()

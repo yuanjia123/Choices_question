@@ -6,17 +6,24 @@ class RegisterForm(forms.Form):
     '''
     账号登录的验证
     '''
-    #名称要必须和视图中的名字一样
-    name = forms.CharField(label="用户名",required=True,min_length=3)  #required=True必填字段
-    email = forms.CharField(label="邮箱",required=True,min_length=3)  #required=True必填字段
-    password = forms.CharField(label="密码",required=True,min_length=3)  #required=True必填字段
+    username = forms.CharField(label="用户名", required=True, min_length=3, )  # required=True必填字段
+    #声明username的输入框class=form-control
+    username.widget.attrs.update({'class': 'form-control','placeholder':'用户名'})
+
+    #widget=forms.PasswordInput()  申明他是一个type='password'类型
+    password = forms.CharField(label="密码", required=True, min_length=3,
+                               widget=forms.PasswordInput())  # required=True必填字段
+    password.widget.attrs.update({'class': 'form-control','placeholder':'密码'})
+
+    email = forms.CharField(label="邮箱", required=True, min_length=3)
+    email.widget.attrs.update({'class': 'form-control','placeholder':'邮箱'})
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label="用户名",required=True,min_length=3,)  #required=True必填字段
-    username.widget.attrs.update({'class': 'form-control'})
+    username = forms.CharField(label="用户名",required=True,min_length=3)  #required=True必填字段
+    username.widget.attrs.update({'class': 'form-control','placeholder':'用户名'})
 
-    password = forms.CharField(label="密码",required=True,min_length=3,)  #required=True必填字段
-    password.widget.attrs.update({'class': 'form-control'})
+    password = forms.CharField(label="密码",required=True,min_length=3,widget=forms.PasswordInput())  #required=True必填字段
+    password.widget.attrs.update({'class': 'form-control','placeholder':'密码'})
 
 class File_Form(forms.Form):
     name = forms.CharField(label="用户名",required=False)
