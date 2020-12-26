@@ -6,6 +6,8 @@ from exam_test.forms import ExcelForm
 import os
 import time
 from django.http import HttpResponse
+from exam_test.models import Data_weather
+from django.views.generic.base import View
 
 
 def index(request):
@@ -141,3 +143,22 @@ def upload(request):
     else:
         form = ExcelForm()
     return render(request, 'upload.html', {'form': form})
+
+def location_weather(request):
+    #查询城市字段   set去重
+    city_list = list(set(list(Data_weather.objects.values_list('city'))))
+    li = []
+    for i in city_list:
+        j = str(i)
+        m = j.replace("('","").replace("',)","")
+        li.append({'city':m})
+    # print("第一个页面的访问数据: ",li)
+    return render(request,"weather.html", {'results': li})
+
+#编写退出接口
+class weather_View(View):
+    def post(self,request,*args,**kwargs):
+        address = request.POST.get("address")
+        year = request.POST.get("year")
+        months = request.POST.get("months")
+        print("---------------",address)

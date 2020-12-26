@@ -14,3 +14,16 @@ class Choice(models.Model):
     #
     # def __str__(self):
     #     return self.answer
+
+
+class Data_weather(models.Model):
+
+    city = models.CharField(max_length=50,null=False)
+    ymd = models.CharField(max_length=50,null=False)
+    tianqi = models.CharField(max_length=50,null=False)
+    bWendu = models.CharField(max_length=50,null=False)
+    yWendu = models.CharField(max_length=50,null=False)
+    fenli = models.CharField(max_length=50,null=False)
+    fenxiang = models.CharField(max_length=50,null=False)
+    yer = models.CharField(max_length=50,null=False)
+    month = models.CharField(max_length=50,null=False)
