@@ -10,7 +10,7 @@ urlpatterns = [
     path('upload/', views.upload,name='upload'),
     path('score/<random_li>/<name>/', views.score,name ='score' ),
     path('', include('users.urls')),
-    path('weather/', views.location_weather,name='location_weather'),
+    path('weather/', views.location_weather,name='weather'),
     path('weaher_data_json/', Weather_View.as_view(),name='weather_View'),
     # path('', include('newuser.urls')),
 ]
