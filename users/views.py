@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate,login,logout
 from users.models import UserProfile
 
 
-
 # def register(request):
 #     if request.method == 'POST':
 #         form = RegisterForm(request.POST)
@@ -177,4 +176,5 @@ def showall_img(request):
 
 
 def Main_View(request):
+
     return render(request,'main.html')

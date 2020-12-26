@@ -3,19 +3,23 @@
 
 
 {% block main %}
-    <div class="main">
+    <p>
+        <a href="{% url 'upload_img' %}">上传照片</a>
+    </p>
 
-            <form>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">试题名称</label>
-                    {{ form.file_name }}
-                  </div>
-                  <div class="form-group">
-                      {{form.file_excel}}
-                    <p class="help-block">上传的试卷格式excel</p>
-                  </div>
-                  <button type="submit" class="btn btn-default">上传</button>
-                   <span>{{ msg }}</span>
-            </form>
-    </div>
+    <p>
+        <a href="{% url 'showall_img' %}">显示全部照片</a>
+    </p>
+
+    <p>
+        <a href="{% url 'upload' %}">上传文件</a>
+    </p>
+
+
+    {% if request.user.is_authenticated %}
+    <p>
+           <a href="{% url 'question' request.user.username %}">开始答题</a>
+    </p>
+    {% endif %}
+
 {% endblock %}

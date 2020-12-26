@@ -1,17 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>文件上传</title>
-</head>
-<body>
-    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+{% extends 'base.html' %}
+{% block title %}上传照片{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block main %}
+
+<form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
-            {{ form }}
+            <tr>
+                {{ form.file_name }}
+            </tr>
+
+            <tr>
+                {{ form.file_excel }}
+            </tr>
         </table>
-        <input type="submit" value="提交文件">
+        <input type="submit" value="提交">
     </form>
     {{ msg }}
-</body>
-</html>
+{% endblock %}

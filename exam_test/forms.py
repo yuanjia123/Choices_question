@@ -9,7 +9,6 @@ class ExcelForm(forms.Form):
     file_name.widget.attrs.update({'class': 'form-control', 'id': "exampleInputPassword1",'placeholder':"试题名称"})
 
     file_excel = forms.FileField(label="上传文件", required=False)  # required 必填字段  required=False 不是必填字段
-    file_excel.widget.attrs.update({'class': 'form-control','id':"exampleInputFile"})
 
 
 

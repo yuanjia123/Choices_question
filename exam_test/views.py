@@ -137,7 +137,7 @@ def upload(request):
                 fw.write(ck)
 
         msg = "文件上传成功"
-        return render(request, 'mian.html', {'form': form,'msg':msg})
+        return render(request, 'upload.html', {'form': form,'msg':msg})
     else:
         form = ExcelForm()
-    return render(request, 'main.html', {'form': form})
+    return render(request, 'upload.html', {'form': form})
