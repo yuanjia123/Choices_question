@@ -8,7 +8,7 @@ import time
 from django.http import HttpResponse
 from exam_test.models import Data_weather
 from django.views.generic.base import View
-
+import json
 
 def index(request):
     li = tools.data()
@@ -155,10 +155,33 @@ def location_weather(request):
     # print("第一个页面的访问数据: ",li)
     return render(request,"weather.html", {'results': li})
 
-#编写退出接口
-class weather_View(View):
+#
+class Weather_View(View):
+
     def post(self,request,*args,**kwargs):
+        # if request.is_ajax():
+        #     print("进来了")
+        #     address = request.POST.get("address")
+        #     year = request.POST.get("year")
+        #     months = request.POST.get("months")
+        #     print("---------------",address,year,months)
+        print("进来了")
         address = request.POST.get("address")
         year = request.POST.get("year")
         months = request.POST.get("months")
-        print("---------------",address)
+        print("---------------", address, year, months)
+        result = Data_weather.objects.filter(city=address,yer=year,month=months)
+
+        print("---------------------------AAA-",result)
+
+        weather_list = []
+        for i in result:
+            a = {'id': i.id, 'city': i.city, 'ymd': i.ymd, 'tianqi': i.tianqi,
+                 'bWendu': i.bWendu, 'yWendu': i.yWendu, 'fenli': i.fenli,
+                 'fenxiang': i.fenxiang, 'yer': i.yer, 'month': i.month}
+            weather_list.append(a)
+        print("当月天气的列表:", weather_list)
+
+
+        #return HttpResponse({"weather_list": weather_list})
+        return HttpResponse(json.dumps({"weather_list": weather_list}), content_type="application/json")

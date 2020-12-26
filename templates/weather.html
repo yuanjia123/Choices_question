@@ -1,6 +1,17 @@
-{% extends 'base.html' %}
-{% block title %}历史天气{% endblock %}
-{% block main %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>历史天气</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+{# 这里是主DIV #}
     <div class="container" id="didian">
     <form action="" method="post">
 
@@ -129,4 +140,5 @@
             });
         })
     </script>
-{% endblock %}
+</body>
+</html>
