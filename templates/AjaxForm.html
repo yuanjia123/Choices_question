@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax提交Form验证</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+    <form action="/#/" method="post" id="fm">
+        {% csrf_token %}
+        <p>username:{{ user.username }}<span id="username_span"></span></p>
+        <p>gender:{{ user.gender }}<span id="gender_span"></span></p>
+        <p><input type="button" value="Ajax提交" id="fm_submit"></p>
+    </form>
+
+    <script>
+
+        $(function(){
+            $("#fm_submit").click(function(){
+                $.ajax({
+                    url:"/ajaxForm/",
+                    type:"post",
+                    dataType:"JSON",
+                    data:$("#fm").serialize(),
+                    success:function(args){
+                        if (args.status == "OK"){
+                            window.location.href("Http://www.baidu.com")
+                        }else if(args.status=="NG"){
+                            console.log(args.msg)
+                            $("#username_span").html(args.msg.username[0])
+                        }
+                    }
+                })
+             })
+        })
+
+    </script>
+
+</body>
+</html>

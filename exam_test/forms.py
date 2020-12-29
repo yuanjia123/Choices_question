@@ -1,5 +1,5 @@
 from django import forms
-
+from django.forms import widgets
 class ExcelForm(forms.Form):
     '''
     账号登录的验证
@@ -12,3 +12,16 @@ class ExcelForm(forms.Form):
 
 
 
+
+class AjaxForm(forms.Form):
+    username = forms.CharField(
+        required=True,
+        min_length=3,
+        error_messages={
+            "min_length":"用户名输入不正确",
+        }
+    )
+    gender = forms.BooleanField(
+        widget=widgets.RadioSelect(choices=[(0,"男"),(1,"女"),]),
+        required=False
+    )

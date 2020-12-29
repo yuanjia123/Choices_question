@@ -13,4 +13,5 @@ urlpatterns = [
     path('weather/', views.location_weather,name='weather'),
     path('weaher_data_json/', Weather_View.as_view(),name='weather_View'),
     # path('', include('newuser.urls')),
+    path('ajaxForm/', views.ajaxForm),
 ]

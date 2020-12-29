@@ -10,7 +10,7 @@ SECRET_KEY = ')l7&&)86r)t(^bgtbyhhydf(-r$e+6-me)3j&1#m+@)!o54)b#'
 
 DEBUG = True
 
-# ALLOWED_HOSTS = [ '172.16.149.5']
+# ALLOWED_HOSTS = [ '192.168.56.1']
 ALLOWED_HOSTS = []
 
 

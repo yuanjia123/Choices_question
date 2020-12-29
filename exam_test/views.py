@@ -2,13 +2,14 @@ from django.shortcuts import render
 from exam_test import tools
 from exam_test.models import Choice
 import random
-from exam_test.forms import ExcelForm
+from exam_test.forms import ExcelForm,AjaxForm
 import os
 import time
 from django.http import HttpResponse
 from exam_test.models import Data_weather
 from django.views.generic.base import View
 import json
+from exam_test import models
 
 def index(request):
     li = tools.data()
@@ -19,6 +20,25 @@ def index(request):
         'choices':li
     })
 
+
+# Create your views here.
+def ajaxForm(request):
+    if request.method=="GET":
+        user = AjaxForm()
+        print("heheh ")
+        return render(request,"AjaxForm.html",{"user":user})
+    else:
+        ret = {"status": "NG", "msg": None}
+        af = AjaxForm(request.POST)
+        if af.is_valid():
+            print(af.cleaned_data)
+            models.User_1.objects.create(**af.cleaned_data)
+            ret["status"]="OK"
+            return HttpResponse(json.dumps(ret))
+        else:
+            print("NG")
+            ret["msg"] = af.errors
+            return HttpResponse(json.dumps(ret))
 
 
 def score(request,random_li,name):

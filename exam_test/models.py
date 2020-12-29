@@ -14,7 +14,9 @@ class Choice(models.Model):
     #
     # def __str__(self):
     #     return self.answer
-
+class User_1(models.Model):
+    username = models.CharField(max_length=50)
+    gender = models.BooleanField()
 
 class Data_weather(models.Model):
 
