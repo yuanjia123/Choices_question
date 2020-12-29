@@ -25,6 +25,7 @@
                     data:$("#fm").serialize(),
                     success:function(args){
                         if (args.status == "OK"){
+                            alert("成功")
                             window.location.href("Http://www.baidu.com")
                         }else if(args.status=="NG"){
                             console.log(args.msg)
